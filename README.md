@@ -81,24 +81,10 @@ These questions will guide your analysis:
 + Accessibility and Inclusivity:
   
   Wearable technology is becoming more affordable and specialized, catering to the diverse needs of users across different demographics and health conditions.
------------------------------------------------------------------------------------------------------------------------------------------------------------
-Using the Fitbit Dataset I got off Kaggle I noticed a few things.
-- Item 1 Calories Burned in an Hour
-  I just wanted to see the frequency of how people are burning calories in an hour. This type of data can be marketable. Just to learn more about ggplot2. Here's the code I used in R-Studio.
------------------------------------------------------------------------------------------------------------------------------------------------------------
-+ ggplot(hourlyCalories_merged, aes(x = Calories)) +
-+   geom_histogram(binwidth = 50, fill = "skyblue", color = "black") +
-+    labs(title = "Distribution of Calories Burned per Hour",
-+    x = "Calories Burned",
-+   y = "Frequency") +
-+    theme_minimal()
------------------------------------------------------------------------------------------------------------------------------------------------------------
-Here's what the plot looks like.
-![CaloriesBurnedperHourFitbit](https://github.com/marcaldana/analysis/assets/72458759/35603e81-616d-4fa2-8b8b-36521d765a55)
- 
-Here you can see most people burn around up to 500 calories in an hour.
 
-Here's a relationship between steps and calories using this code in R-Studio.
+
+
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 library(ggplot2)
 
