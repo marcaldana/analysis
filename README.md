@@ -80,28 +80,8 @@ These questions will guide your analysis:
   
 + Accessibility and Inclusivity:
   
-  Wearable technology is becoming more affordable and specialized, catering to the diverse needs of users across different demographics and health conditions.
+  Wearable technology is becoming more affordable and specialized, catering to the diverse needs of users across different demographics and health conditions
 
-
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------------
-library(ggplot2)
-
-+ Convert 'ActivityDate' to date format if needed (assuming MM/DD/YYYY)
-
-+  dailyActivity_merged$ActivityDate <- as.Date(dailyActivity_merged$ActivityDate, "%m/%d/%Y")
-+  ggplot(dailyActivity_merged, aes(x = TotalSteps, y = Calories)) +
-+  geom_point(alpha = 0.7, color = "blue") +  # Scatterplot with transparency
-+  geom_smooth(method = "lm", se = FALSE, color = "red") +   # Add a linear regression line
-+  labs(title = "Relationship Between Total Steps and Calories Burned",
-+  x = "Total Steps",
-+  y = "Calories Burned") +
-+  theme_minimal()
------------------------------------------------------------------------------------------------------------------------------------------------------------
-  Here is a visualization of the code to understand it more. 
-
-  ![TotalSteps_CalorieBurned](https://github.com/marcaldana/analysis/assets/72458759/066c716f-b48e-4320-a031-36ea411582f4)
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
   
 # 2. How could these trends apply to Bellabeat customers?
