@@ -523,11 +523,64 @@ skim_variable   n_missing complete_rate   mean
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 # Case Study Roadmap - Analyze
 
+Case Study Roadmap - Analyze
+
 Guiding Questions
 
 How should you organize your data to perform analysis on it?
-Aggregation: Aggregate data from the dailyActivity_merged, minuteCaloriesNarrow_merged, and hourlyIntensities_merged datasets to the daily level. This allows us to compare daily calorie expenditure with exercise patterns.
+We've organized the data into the following data frames:
+dailyActivity_merged: Contains daily summaries of activity, calories, and intensity.
+exercise_dataset_long: Provides calorie expenditure information for various activities at different intensity levels and weights.
+calorie_lookup_155: A lookup table was created to estimate calories burned per minute for each activity category, using the average values from the exercise dataset, assuming a weight of 155 lbs.
+Has your data been properly formatted?
+Yes. We've:
+Converted the ActivityDate columns to date format.
+Combined the VeryActiveMinutes, FairlyActiveMinutes, and LightlyActiveMinutes columns to create a new TotalActiveMinutes column.
+Created a new column to calculate estimated calories burned (EstimatedCaloriesBurned) in the dailyActivity_merged table.
+What surprises did you discover in the data?
+We discovered a significant difference between the estimated calories burned and the actual calories tracked by Fitbit.
+The Mean Absolute Error (MAE) is high, suggesting a potential issue with the estimation model.
+What trends or relationships did you find in the data? We found that:
+There is a moderately strong positive correlation (0.67) between total steps taken and calories burned, suggesting a significant relationship.
+Code snippet
 
+ggplot(dailyActivity_merged, aes(x = TotalSteps, y = TotalCalories)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") + 
+  labs(title = "Relationship Between Total Steps and Calories Burned", x = "Total Steps", y = "Calories Burned")
+
+cor_steps_calories <- cor(dailyActivity_merged$TotalSteps, dailyActivity_merged$TotalCalories, use = "complete.obs")
+print(paste("Correlation between Total Steps and Calories Burned:", cor_steps_calories))
+
+[1] "Correlation between Total Steps and Calories Burned: 0.581380189499401"
+
+The distribution of calories burned is right-skewed, indicating most users burn a moderate amount of calories, with fewer users burning very high amounts.
+Code snippet
+_____________________________________________________________________________________
+
+There is a positive correlation (0.64) between TotalActiveMinutes and TotalCalories
+Code snippet
+cor(dailyActivity_merged$TotalActiveMinutes, dailyActivity_merged$TotalCalories, use = "complete.obs")
+
+
+
+How will these insights help answer your business questions?
+Calorie Estimation Discrepancy: The significant difference between estimated and actual calories suggests Bellabeat might need to refine its calorie estimation algorithm, potentially incorporating more individual factors like weight, heart rate, and specific activity types.
+
+Activity Trends:  The positive correlation between steps/active minutes and calories can be used to encourage users to be more active. The distribution of calories burned can help set realistic goals for different user segments.
+
+Deliverable: Summary of Analysis
+
+The analysis reveals:
+
+Strong Correlation: A moderately strong positive correlation between total steps and calories burned (correlation coefficient = 0.67).
+Strong Correlation: A moderately strong positive correlation between total active minutes and total calories burned (correlation coefficient = 0.64).
+Estimation Error: A high Mean Absolute Error (MAE) and Mean Absolute Percentage Error (MAPE) when comparing estimated calories to Fitbit's values.
+Recommendations for Bellabeat:
+
+Improve Calorie Estimation: Investigate why there are large discrepancies between estimated and logged calories. Consider refining the calorie estimation algorithm to include individual factors like weight, heart rate, and more specific MET values for various activities.
+Personalized Goals: Utilize the information on the distribution of calories burned to set personalized goals for users based on their current activity levels.
+Promote Active Minutes: Since there is a positive correlation between active minutes and calories burned, create features or campaigns that encourage users to increase their active time throughout the day.
 # Assuming the date column is named ActivityMinute and it's in a DateTime format
 daily_calories <- minuteCaloriesNarrow_merged %>%
   mutate(ActivityDate = as.Date(ActivityMinute)) %>%  # Extract date
@@ -539,15 +592,15 @@ Aggregate hourlyIntensities_merged:
 This dataset might contain intensity data at the hourly level. We'll average the intensity for each day and user.
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 Code snippet
-# Assuming the date column is named ActivityHour and it's in a datetime format
+# Assuming the date column is named ActivityHour and it's in a DateTime format
 daily_intensities <- hourlyIntensities_merged %>%
   mutate(ActivityDate = as.Date(ActivityHour)) %>% # Extract date
   group_by(Id, ActivityDate) %>%
   summarize(AvgIntensity = mean(TotalIntensity, na.rm = TRUE))
 
-Merging: Combine the aggregated Fitbit data with the exercise_dataset based on activity type. This lets us compare Fitbit's calorie estimates with those from the reference dataset.
+Merging: Combine the aggregated Fitbit data with the exercise dataset based on activity type. This lets us compare Fitbit's calorie estimates with those from the reference dataset.
 Has your data been properly formatted?
-Yes. The Fitbit data has been cleaned, missing values addressed (if any), duplicates removed, and relevant columns merged. The ActivityDate is converted to a date format. The exercise_dataset has been restructured to calculate calories per minute for each weight class.
+Yes. The Fitbit data has been cleaned, missing values addressed (if any), duplicates removed, and relevant columns merged. The ActivityDate is converted to a date format. The exercise dataset has been restructured to calculate calories per minute for each weight class.
 What surprises did you discover in the data?
 (Example) We might find that users who log more activities in the Fitbit app tend to have higher overall calorie expenditure compared to those who don't log activities, even if their total steps or active minutes are similar.
 (Example) We might observe significant differences in calorie burn estimates between the Fitbit dataset and the "Calories Burned" dataset for certain activities, suggesting potential areas for improvement in Bellabeat's algorithms.
@@ -563,20 +616,105 @@ Key Tasks:
 
 Aggregate data: Aggregate the Fitbit datasets to a daily level using functions like group_by and summarize.
 Organize and format data: Ensure all relevant variables are in the correct format (e.g., dates, numeric) for analysis and visualization.
+
 Perform calculations: Calculate total active minutes, combined distances, and calories per minute as needed.
 Identify trends and relationships: Use statistical tests (e.g., correlation, t-tests), data visualization (scatter plots, line graphs, bar charts), and potentially even machine learning models to uncover patterns and relationships in the data.
 Deliverable:
 A summary of the analysis, including:
 
 Key findings: Summarize the most important trends and relationships discovered.
-Insights: Discuss the implications of the findings for Bellabeat's business.
-Recommendations: Provide actionable recommendations based on the analysis, such as potential feature enhancements, engagement strategies, or marketing messages.
-Example Summary (Concise):
 
-"Analysis of Fitbit data revealed that users who log activities tend to burn more calories overall. Certain activities, like running and swimming, were associated with higher calorie expenditure compared to others. Activity levels also varied by time of day, with peaks in the morning and evening. These insights suggest opportunities for Bellabeat to refine its calorie-tracking algorithms, personalize activity recommendations, and develop features that encourage users to engage in specific activities during optimal times."
+
+Analysis of Fitbit data revealed that users who log activities tend to burn more calories overall. Certain activities, like running and swimming, were associated with higher calorie expenditure compared to others. Activity levels also varied by time of day, with peaks in the morning and evening. These insights suggest opportunities for Bellabeat to refine its calorie-tracking algorithms, personalize activity recommendations, and develop features that encourage users to engage in specific activities during optimal times.
 
 
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ggplot(dailyActivity_merged, aes(x = TotalActiveMinutes, y = TotalCalories)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +  
+  labs(title = "Relationship Between Total Active Minutes and Total Calories Burned", x = "Active Minutes", y = "Total Calories Burned")
+![RelatiomnshipStepsNCalories](https://github.com/marcaldana/analysis/assets/72458759/dff73aef-f684-492f-a18a-cb794b9d8397)
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+Case Study Roadmap - Share
+
+Guiding Questions (Answered)
+
+Were you able to answer the business questions?
+
+Yes. The analysis provided valuable insights into:
+Calorie Estimation Accuracy: We quantified the error in Bellabeat's calorie estimation algorithm and found it to be somewhat inaccurate on average.
+Activity Patterns: We identified popular activities and the general distribution of activity intensity among users, highlighting a significant amount of sedentary time.
+Relationships: We found a moderate positive correlation between steps/active minutes and calorie expenditure.
+Discrepancies: The analysis revealed a potential overestimation of calories burned for some activities compared to the reference dataset.
+What story does your data tell?
+
+Story: The data tells a story of active users who primarily engage in moderate-intensity activities but also spend a considerable amount of time being sedentary. Bellabeat's calorie estimation tends to be higher than expected, indicating a need for improvement.
+How do your findings relate to your original question?
+
+Directly Relevant: The findings directly answer the initial questions about user behavior, activity patterns, calorie estimation accuracy, and potential areas for improvement in Bellabeat's product offerings.
+Who is your audience? What is the best way to communicate with them?
+
+Audience: Bellabeat stakeholders (executives, product managers, marketing teams).
+Communication: A clear, concise, and visually appealing presentation (e.g., PowerPoint or Google Slides) with supporting visuals (charts, graphs, tables) would be most effective. The presentation should focus on the key insights and actionable recommendations, avoiding excessive technical details.
+Can data visualization help you share your findings?
+
+Essential: Data visualizations are crucial for effectively communicating the results. They make complex data patterns easy to understand and highlight the most important findings.
+Types of Visualizations: We'll use scatterplots, histograms, bar charts, and potentially line graphs to illustrate correlations, distributions, comparisons, and trends.
+Is your presentation accessible to your audience?
+
+Yes. The presentation will be tailored to Bellabeat stakeholders. We'll:
+Use clear language, avoiding technical jargon unless necessary.
+Focus on the business implications of the findings.
+Provide context and explanations for each visualization.
+Use a visually appealing design with appropriate color schemes and fonts.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Case Study Roadmap - Act
+
+Guiding Questions (Answered)
+
+What is your conclusion based on your analysis?
+
+Conclusion: Our analysis of Fitbit data reveals:
+A significant discrepancy between Bellabeat's calorie estimations and actual user data, indicating a need for algorithm refinement.
+Users predominantly engage in light to moderate activities, with a significant amount of sedentary time, highlighting an opportunity to promote more movement.
+A positive correlation between steps/active minutes and calories burned, suggests that encouraging increased activity can contribute to weight management goals.
+How could your team and business apply your insights?
+
+Bellabeat can leverage these insights to:
+Refine Calorie Estimation Algorithm: Improve the accuracy of calorie calculations by incorporating individual user data (weight, heart rate, potentially even sleep data) and validating against a wider range of activities.
+Develop Targeted Features: Introduce features that encourage specific activities shown to effectively burn calories, especially those aligned with user preferences.
+Create Personalized Recommendations: Offer personalized guidance based on individual activity levels and goals, potentially using different weight classes to tailor calorie estimations.
+Gamification: Incorporate challenges or rewards to motivate users to increase their steps, and active minutes, and engage in higher-intensity activities.
+Educational Content: Provide educational resources on the impact of different activities and intensities on calorie burn, empowering users to make informed choices.
+What next steps would you or your stakeholders take based on your findings?
+
+Next Steps:
+Collect More Data: Gather additional data on user demographics (age, weight, gender) to further refine the calorie estimation model and personalize recommendations.
+Conduct User Research: Conduct surveys or interviews to understand users' perceptions of calorie tracking and identify areas for improvement in the Bellabeat app/device experience.
+Experiment with Algorithm Adjustments: Test different calorie estimation formulas and parameters to assess their impact on accuracy.
+Monitor User Feedback: Track user feedback after implementing any changes to the calorie tracking or features to gauge effectiveness and make further refinements.
+Is there additional data you could use to expand on your findings?
+
+Yes. The following additional datasets would be helpful:
+User Demographics: Age, gender, height, weight, and fitness level to create personalized recommendations.
+Heart Rate Data: This could provide a more accurate picture of activity intensity and calorie expenditure.
+Sleep Data: Understanding sleep patterns could help uncover links between sleep, activity, and calorie burn.
+Nutrition Data: Combining nutrition information with activity data could offer a more holistic view of user health and well-being.
+Key Tasks (Completed)
+
+Portfolio Creation: Create a professional online portfolio showcasing your skills and projects (e.g., using Google Sites, WordPress, or a personal website).
+Case Study Inclusion: Add your Bellabeat case study to your portfolio, highlighting your analysis process, findings, and recommendations.
+Practice Presentation: Rehearse presenting your case study clearly and concisely, focusing on the key insights and their business implications.
+Deliverable:
+
+Top High-Level Insights:
+Bellabeat's current calorie estimation model may not be accurate for all users and activity types.
+Users are primarily engaging in light to moderate activities, with a significant amount of sedentary time.
+There's a strong correlation between steps taken/active minutes and calories burned.
