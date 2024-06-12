@@ -193,21 +193,7 @@ Calculate total active minutes by summing VeryActiveMinutes, FairlyActiveMinutes
 Calculate the total distance from different sources (e.g., TrackerDistance, LoggedActivitiesDistance, etc.).
 Calories Burned Data:
 Calculate calories per minute for each activity to facilitate comparison with the Fitbit data.
-
-library(dplyr)
-library(tidyr)
-library(lubridate)
-
-# 1. Handle Missing Values:
-
-# Check for missing values in each table 
-colSums(is.na(dailyActivity_merged))
-colSums(is.na(minuteCaloriesNarrow_merged))
-colSums(is.na(hourlyIntensities_merged))
-colSums(is.na(hourlyCalories_merged))
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-colSums(is.na(dailyActivity_merged))
 Results: 
                       Id             ActivityDate               TotalSteps 
                        0                        0                        0 
@@ -544,14 +530,6 @@ What trends or relationships did you find in the data? We found that:
 There is a moderately strong positive correlation (0.67) between total steps taken and calories burned, suggesting a significant relationship.
 Code snippet
 
-ggplot(dailyActivity_merged, aes(x = TotalSteps, y = TotalCalories)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE, color = "red") + 
-  labs(title = "Relationship Between Total Steps and Calories Burned", x = "Total Steps", y = "Calories Burned")
-
-cor_steps_calories <- cor(dailyActivity_merged$TotalSteps, dailyActivity_merged$TotalCalories, use = "complete.obs")
-print(paste("Correlation between Total Steps and Calories Burned:", cor_steps_calories))
-
 [1] "Correlation between Total Steps and Calories Burned: 0.581380189499401"
 
 The distribution of calories burned is right-skewed, indicating most users burn a moderate amount of calories, with fewer users burning very high amounts.
@@ -559,10 +537,6 @@ Code snippet
 _____________________________________________________________________________________
 
 There is a positive correlation (0.64) between TotalActiveMinutes and TotalCalories
-Code snippet
-cor(dailyActivity_merged$TotalActiveMinutes, dailyActivity_merged$TotalCalories, use = "complete.obs")
-
-
 
 How will these insights help answer your business questions?
 Calorie Estimation Discrepancy: The significant difference between estimated and actual calories suggests Bellabeat might need to refine its calorie estimation algorithm, potentially incorporating more individual factors like weight, heart rate, and specific activity types.
@@ -581,22 +555,8 @@ Recommendations for Bellabeat:
 Improve Calorie Estimation: Investigate why there are large discrepancies between estimated and logged calories. Consider refining the calorie estimation algorithm to include individual factors like weight, heart rate, and more specific MET values for various activities.
 Personalized Goals: Utilize the information on the distribution of calories burned to set personalized goals for users based on their current activity levels.
 Promote Active Minutes: Since there is a positive correlation between active minutes and calories burned, create features or campaigns that encourage users to increase their active time throughout the day.
-# Assuming the date column is named ActivityMinute and it's in a DateTime format
-daily_calories <- minuteCaloriesNarrow_merged %>%
-  mutate(ActivityDate = as.Date(ActivityMinute)) %>%  # Extract date
-  group_by(Id, ActivityDate) %>%
-  summarize(TotalCalories = sum(Calories, na.rm = TRUE))
---------------------------------------------------------------------------------------------------------------------------------------------------------
-Aggregate hourlyIntensities_merged:
 
-This dataset might contain intensity data at the hourly level. We'll average the intensity for each day and user.
---------------------------------------------------------------------------------------------------------------------------------------------------------
-Code snippet
-# Assuming the date column is named ActivityHour and it's in a DateTime format
-daily_intensities <- hourlyIntensities_merged %>%
-  mutate(ActivityDate = as.Date(ActivityHour)) %>% # Extract date
-  group_by(Id, ActivityDate) %>%
-  summarize(AvgIntensity = mean(TotalIntensity, na.rm = TRUE))
+-------------------------------------------------------------------------------------
 
 Merging: Combine the aggregated Fitbit data with the exercise dataset based on activity type. This lets us compare Fitbit's calorie estimates with those from the reference dataset.
 Has your data been properly formatted?
@@ -632,10 +592,6 @@ Analysis of Fitbit data revealed that users who log activities tend to burn more
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 
-ggplot(dailyActivity_merged, aes(x = TotalActiveMinutes, y = TotalCalories)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE, color = "red") +  
-  labs(title = "Relationship Between Total Active Minutes and Total Calories Burned", x = "Active Minutes", y = "Total Calories Burned")
 ![RelatiomnshipStepsNCalories](https://github.com/marcaldana/analysis/assets/72458759/dff73aef-f684-492f-a18a-cb794b9d8397)
 
 
@@ -673,6 +629,29 @@ Focus on the business implications of the findings.
 Provide context and explanations for each visualization.
 Use a visually appealing design with appropriate color schemes and fonts.
 
+What It Shows: Average daily steps, calories burned, and active minutes over time for all users.
+Insights: Helps identify trends in overall user activity levels, seasonal variations, or the impact of any interventions or campaigns Bellabeat might have run during the data collection period
+
+![RbetwenActiveMinNCalories]
+(https://github.com/marcaldana/analysis/assets/72458759/65fadc7b-aa04-4b31-8de5-17a6a37bde5e)
+
+Insight: Reveals how active minutes are distributed across users. Are most users moderately active, or are there clusters of very active and sedentary individuals?
+
+![Rtotalactiveminute](https://github.com/marcaldana/analysis/assets/72458759/178a8008-9d48-4362-b42a-9a24f95dd922)
+
+# Scatterplot: Estimated vs. Actual Calories Burned
+Code:
+
+![Rtotalactiveminute](https://github.com/marcaldana/analysis/assets/72458759/94d2ffd8-4418-453b-87c3-67b7218db369)
+
+![RplotCalorieEstDifferences](https://github.com/marcaldana/analysis/assets/72458759/d8d5cf09-d978-4c3f-b0d5-6b561caa1cc4)
+
+
+Interpretation:
+
+High Bars: A tall bar in the histogram indicates that a particular range of calorie differences is quite common.
+Low Bars: A short bar means that the corresponding range of calorie differences occurs less frequently.
+Overall Shape: The overall shape of the histogram tells you about the distribution of the errors.
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Case Study Roadmap - Act
@@ -709,9 +688,6 @@ Sleep Data: Understanding sleep patterns could help uncover links between sleep,
 Nutrition Data: Combining nutrition information with activity data could offer a more holistic view of user health and well-being.
 Key Tasks (Completed)
 
-Portfolio Creation: Create a professional online portfolio showcasing your skills and projects (e.g., using Google Sites, WordPress, or a personal website).
-Case Study Inclusion: Add your Bellabeat case study to your portfolio, highlighting your analysis process, findings, and recommendations.
-Practice Presentation: Rehearse presenting your case study clearly and concisely, focusing on the key insights and their business implications.
 Deliverable:
 
 Top High-Level Insights:
