@@ -598,7 +598,7 @@ Analysis of Fitbit data revealed that users who log activities tend to burn more
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 Case Study Roadmap - Share
 
-Guiding Questions (Answered)
+Guiding Questions
 
 Were you able to answer the business questions?
 
