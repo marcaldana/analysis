@@ -643,15 +643,20 @@ Insight: Reveals how active minutes are distributed across users. Are most users
 Code:
 
 ![Rtotalactiveminute](https://github.com/marcaldana/analysis/assets/72458759/94d2ffd8-4418-453b-87c3-67b7218db369)
+--------------------------------------------------------------------------------------------------------------------------------------
 
 ![RplotCalorieEstDifferences](https://github.com/marcaldana/analysis/assets/72458759/d8d5cf09-d978-4c3f-b0d5-6b561caa1cc4)
-
 
 Interpretation:
 
 High Bars: A tall bar in the histogram indicates that a particular range of calorie differences is quite common.
 Low Bars: A short bar means that the corresponding range of calorie differences occurs less frequently.
 Overall Shape: The overall shape of the histogram tells you about the distribution of the errors.
+--------------------------------------------------------------------------------------------------------------------------------------
+
+
+![REstimatedvsActual155](https://github.com/marcaldana/analysis/assets/72458759/3e2536f3-197a-4b20-a2ab-fc1b67afdce7)
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Case Study Roadmap - Act
