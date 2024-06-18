@@ -1,9 +1,6 @@
 # BellaBeats Google's Data Analytics Capstone Course 
 
-Hi, My name is Marc Aldana. I have a Bachelor of Science from SUNY Old Westbury in Management Information Systems. This is my case study on wearable technology. I'm going to go into each step of the data analysis process. I will provide some visualizations. I will be using R-studio to analyze datasets. 
-I'm going to show how I cleaned data using R. I will show the before and after.
-
-
+Hi, My name is Jonathan Aldana. I have a Bachelor of Science from SUNY Old Westbury in Management Information Systems. This is my case study on wearable technology. I'm going to go into each step of the data analysis process. I will provide some visualizations. I will be using R-studio to analyze datasets. 
 
 ![BellaBeats Google's Data Analytics Capstone Course](https://bellabeat.com/wp-content/uploads/2023/09/Bellabeat-logo.jpg)
 BellaBeats Google's Data Analytics Capstone Course 
@@ -32,22 +29,26 @@ Business Task:
 
 Analyze user behavior and health data from both Bellabeat and competitor wearable devices to identify opportunities for improving Bellabeat's product features, user engagement, and overall market competitiveness.
 
-#Key Focus Areas:
+# Key Focus Areas:
 
-Feature Enhancement:
++ Feature Enhancement:
 Identify most used and valued features: Determine which features (e.g., activity tracking, sleep analysis, stress monitoring) are most frequently used and highly rated by users across different brands. This can guide Bellabeat in prioritizing feature development and improvements.
 Uncover unmet needs: Analyze user feedback and reviews to identify gaps in existing features and potential areas for innovation. This could lead to the development of unique features that address unmet needs in the market.
-User Engagement:
-Usage patterns: Analyze how users interact with different features and how their usage changes over time. This can help Bellabeat optimize the user experience and design features that encourage long-term engagement.
-Churn analysis: Identify factors that contribute to user churn (stopping using the device) and develop strategies to improve customer retention.
+
++ Usage patterns: Analyze how users interact with different features and how their usage changes over time. This can help Bellabeat optimize the user experience and design features that encourage long-term engagement.
+  
++ Churn analysis: Identify factors that contribute to user churn (stopping using the device) and develop strategies to improve customer retention.
 Market Competitiveness:
-Benchmarking: Compare Bellabeat's performance to competitors in terms of user satisfaction, feature adoption, and overall market share. This can highlight areas where Bellabeat excels or needs to improve.
-Competitive advantage: Identify Bellabeat's unique strengths and areas where they can differentiate themselves from competitors. This could involve focusing on specific demographics, health conditions, or lifestyle factors.
++ Benchmarking: Compare Bellabeat's performance to competitors in terms of user satisfaction, feature adoption, and overall market share. This can highlight areas where Bellabeat excels or needs to improve.
+  
++ Competitive advantage: Identify Bellabeat's unique strengths and areas where they can differentiate themselves from competitors. This could involve focusing on specific demographics, health conditions, or lifestyle factors.
+
 Data Sources:
 
-Bellabeat Internal Data: Utilize user data collected from Bellabeat devices and apps, including activity, sleep, stress, and reproductive health data.
-Public Datasets: Explore publicly available datasets from other wearable device companies (if available), ensuring compliance with privacy regulations.
-Customer Surveys and Feedback: Gather data from surveys, reviews, and social media to understand user preferences, pain points, and suggestions for improvement.
++ Bellabeat Internal Data: Utilize user data collected from Bellabeat devices and apps, including activity, sleep, stress, and reproductive health data.
++ Public Datasets: Explore publicly available datasets from other wearable device companies (if available), ensuring compliance with privacy regulations.
+  
++ Customer Surveys and Feedback: Gather data from surveys, reviews, and social media to understand user preferences, pain points, and suggestions for improvement.
 By addressing this business task through data analysis, Bellabeat can gain valuable insights into user behavior, identify areas for improvement, and develop targeted strategies to enhance its products, increase user engagement, and stay ahead in the competitive wearable technology market.
 
 
@@ -133,12 +134,14 @@ Calories Burned During Exercise and Activities: https://www.kaggle.com/datasets/
 Fitbit Fitness Tracker Data:
 Multiple CSV files in wide format (each row is a user, and columns represent dates or metrics).
 Some files (like heartrate_seconds_merged) are in long format (each row is a timestamp for a user).
-Calories Burned During Exercise and Activities:
+
++ Calories Burned During Exercise and Activities:
 Single CSV file in wide format (each row is an activity, columns represent METs and calories burned).
-Are there issues with bias or credibility in this data? Does your data ROCCC?
-+ Bias:
-Fitbit Data: Self-selection bias (users opted to share data), potential over-representation of health-conscious individuals, and limited to Fitbit users.
-Calories Burned Data: Potential inaccuracies in calorie estimates, as individual factors (age, weight, etc.) are not considered.
++ Are there issues with bias or credibility in this data? Does your data ROCCC?
+
+Bias:
++ Fitbit Data: Self-selection bias (users opted to share data), potential over-representation of health-conscious individuals, and limited to Fitbit users.
++ Calories Burned Data: Potential inaccuracies in calorie estimates, as individual factors (age, weight, etc.) are not considered.
 # ROCCC:
 + Reliable: Both datasets come from Kaggle, a reputable source. However, the Fitbit data was collected via Amazon Mechanical Turk, which might raise questions about participant motivation and data quality.
 + Original: Both datasets are likely secondary data, compiled from other sources.
@@ -164,37 +167,39 @@ Yes, both datasets have limitations (see point 3). These limitations will be add
 Acknowledging biases and potential inaccuracies in the analysis.
 Supplementing with additional research or data (if possible) to gain a more comprehensive understanding.
 Focusing on patterns and trends rather than absolute values, given the potential limitations of the datasets.
+
 Guiding Questions
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-## Case Study Roadmap - Process
+# Case Study Roadmap - Process
  
-What tools are you choosing and why?
-RStudio: We'll primarily use RStudio for this analysis due to its strengths in data manipulation, statistical analysis, and visualization.
-Libraries: We'll leverage the following R libraries:
-dplyr: For data wrangling (filtering, selecting, mutating, summarizing)
-tidyr: For tidying data (pivoting between long and wide formats)
-ggplot2: For creating informative and aesthetically pleasing visualizations
-lubridate: For working with date and time data
-Have you ensured your data’s integrity?
-Initial Data Checks: Before diving into analysis, we've taken the following steps:
-Missing values: Identified and handled missing values in both datasets. Since the "Calories Burned" dataset has no missing values, we focus on the Fitbit dataset. Depending on the extent, we can either remove rows with missing data or impute missing values with appropriate methods.
-Duplicates: Checked and removed any duplicate entries in the Fitbit dataset to avoid inflating numbers.
-Data types: Confirmed that columns have the correct data types. For example, ActivityDate in the Fitbit dataset will be converted to a date format.
-Outliers: Examined for extreme values in the Fitbit dataset. Outliers in calorie data or activity levels might be investigated further as they could indicate data entry errors or exceptional scenarios.
-What steps have you taken to ensure that your data is clean?
-Data Cleaning Steps:
-Fitbit Data:
-Handle missing values (remove or impute).
-Remove duplicate entries.
-Convert ActivityDate to date format.
-Merge relevant tables (e.g., dailyActivity_merged, minuteCalories_merged) using common identifiers (e.g., Id, ActivityDate).
-Create calculated fields:
-Calculate total active minutes by summing VeryActiveMinutes, FairlyActiveMinutes, and LightlyActiveMinutes.
-Calculate the total distance from different sources (e.g., TrackerDistance, LoggedActivitiesDistance, etc.).
-Calories Burned Data:
-Calculate calories per minute for each activity to facilitate comparison with the Fitbit data.
++ What tools are you choosing and why?
++ RStudio: We'll primarily use RStudio for this analysis due to its strengths in data manipulation, statistical analysis, and visualization.
++ Libraries: We'll leverage the following R libraries:
++ dplyr: For data wrangling (filtering, selecting, mutating, summarizing)
++ tidyr: For tidying data (pivoting between long and wide formats)
++ ggplot2: For creating informative and aesthetically pleasing visualizations
++ lubridate: For working with date and time data
++ Have you ensured your data’s integrity?
++ Initial Data Checks: Before diving into analysis, we've taken the following steps:
++ Missing values: Identified and handled missing values in both datasets. Since the "Calories Burned" dataset has no missing values, we focus on the Fitbit dataset. Depending on the extent, we can either remove rows with missing data or impute missing values with appropriate methods.
++ Duplicates: Checked and removed any duplicate entries in the Fitbit dataset to avoid inflating numbers.
++ Data types: Confirmed that columns have the correct data types. For example, ActivityDate in the Fitbit dataset will be converted to a date format.
++ Outliers: Examined for extreme values in the Fitbit dataset. Outliers in calorie data or activity levels might be investigated further as they could indicate data entry errors or exceptional scenarios.
++ What steps have you taken to ensure that your data is clean?
++ Data Cleaning Steps:
++ Fitbit Data:
++ Handle missing values (remove or impute).
++ Remove duplicate entries.
++ Convert ActivityDate to date format.
++ Merge relevant tables (e.g., dailyActivity_merged, minuteCalories_merged) using common identifiers (e.g., Id, 
+  ActivityDate).
++ Create calculated fields:
++ Calculate total active minutes by summing VeryActiveMinutes, FairlyActiveMinutes, and LightlyActiveMinutes.
++ Calculate the total distance from different sources (e.g., TrackerDistance, LoggedActivitiesDistance, etc.).
++ Calories Burned Data:
++ Calculate calories per minute for each activity to facilitate comparison with the Fitbit data.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-Results: 
++ Results: 
                       Id             ActivityDate               TotalSteps 
                        0                        0                        0 
            TotalDistance          TrackerDistance LoggedActivitiesDistance 
@@ -243,7 +248,7 @@ Activity, Exercise or Sport (1 hour)
                                    0 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-How can you verify that your data is clean and ready to analyze?
++ How can you verify that your data is clean and ready to analyze?
 Verification:
 Summary statistics: Calculate summary statistics (mean, median, standard deviation, etc.) for relevant variables to ensure they make sense in the context of the data.
 
@@ -254,340 +259,270 @@ Summary statistics: Calculate summary statistics (mean, median, standard deviati
 + 3rd Qu.: The 75th percentile (the value below which 75% of the data falls).
 + Max.: The maximum value in the column.
   
+## Data Summary for dailyActivity_merged Dataset
 
-      Id            ActivityDate         TotalSteps   
- Min.   :1.504e+09   Length:940         Min.   :    0  
- 1st Qu.:2.320e+09   Class :character   1st Quarter.: 3790  
- Median:4.445e+09    Mode: character    Median:  7406  
- Mean:4.855e+09                         Mean:    7638  
- 3rd Qu.:6.962e+09                      3rd Quarter: 10727  
- Max.   :8.878e+09                      Max.   : 36019  
- 
- TotalDistance    TrackerDistance  LoggedActivitiesDistance
- Min.   : 0.000   Min.   : 0.000   Min.   :0.0000          
- 1st Qu.: 2.620   1st Qu.: 2.620   1st Qu.:0.0000          
- Median: 5.245    Median:  5.245   Median: 0.0000          
- Mean: 5.490      Mean:    5.475   Mean:   0.1082          
- 3rd Qu.: 7.713   3rd Qu.: 7.710   3rd Qu.:0.0000          
- Max.   :28.030   Max.   :28.030   Max.   :4.9421     
- 
- VeryActiveDistance ModeratelyActiveDistance LightActiveDistance
- Min.   : 0.000     Min.   :0.0000           Min.   : 0.000     
- 1st Qu.: 0.000     1st Qu.:0.0000           1st Qu.: 1.945     
- Median: 0.210      Median:0.2400            Median: 3.365     
- Mean: 1.503        Mean:0.5675              Mean: 3.341     
- 3rd Qu.: 2.053     3rd Qu.:0.8000           3rd Qu.: 4.782     
- Max.   :21.920     Max.   :6.4800           Max.   :10.710    
- 
- SedentaryActiveDistance VeryActiveMinutes FairlyActiveMinutes
- Min.   :0.000000        Min.   :  0.00    Min.   :  0.00     
- 1st Qu.:0.000000        1st Qu.:  0.00    1st Qu.:  0.00     
- Median:0.000000         Median:  4.00     Median:   6.00     
- Mean:0.001606           Mean: 21.16       Mean:     13.56     
- 3rd Qu.:0.000000        3rd Qu.: 32.00    3rd Qu.:  19.00     
- Max.   :0.110000        Max.   :210.00    Max.:     143.00     
- 
- LightlyActiveMinutes SedentaryMinutes    Calories   
- Min.   :  0.0        Min.   :   0.0   Min.   :   0  
- 1st Qu.:127.0        1st Qu.: 729.8   1st Qu.:1828  
- Median:199.0         Median:1057.5    Median:2134  
- Mean:192.8           Mean: 991.2      Mean:2304  
- 3rd Qu.:264.0        3rd Qu.:1229.5   3rd Qu.:2793  
- Max.   :518.0        Max.   :1440.0   Max.   :4900  
+### General Overview:
 
+*   Number of rows: 940
+*   Number of columns: 14
+*   Column types:
+    *   1 character (`ActivityDate`)
+    *   13 numeric (`Id`, `TotalSteps`, `TotalDistance`, etc.)
 
-mean: The average value of each variable.
-sd: The standard deviation, a measure of how spread out the data is around the mean.
-p0: The minimum value (0th percentile).
-p25: The 25th percentile (the value below which 25% of the data falls).
-p50: The median (50th percentile).
-p75: The 75th percentile (the value below which 75% of the data falls).
-p100: The maximum value (100th percentile).
-hist: A histogram visualizing the distribution of the data.
+### Character Variable Summary:
 
- skim_variable            n_missing complete_rate    mean      sd
- 1 Id                               0             1 4.86e+9    2.42e+9
- 2 TotalSteps                       0             1 7.64e+3    5.09e+3
- 3 TotalDistance                    0             1 5.49e+0    3.92e+0
- 4 TrackerDistance                  0             1 5.48e+0    3.91e+0
- 5 LoggedActivitiesDistance         0             1 1.08e-1    6.20e-1
- 6 VeryActiveDistance               0             1 1.50e+0    2.66e+0
- 7 ModeratelyActiveDistance         0             1 5.68e-1    8.84e-1
- 8 LightActiveDistance              0             1 3.34e+0    2.04e+0
- 9 SedentaryActiveDistance          0             1 1.61e-3    7.35e-3
-10 VeryActiveMinutes                0             1 2.12e+1    3.28e+1
-11 FairlyActiveMinutes              0             1 1.36e+1    2.00e+1
-12 LightlyActiveMinutes             0             1 1.93e+2    1.09e+2
-13 SedentaryMinutes                 0             1 9.91e+2    3.01e+2
-14 Calories                         0             1 2.30e+3    7.18e+2
+| Variable Name   | Number of Unique Values |
+| :-------------- | ----------------------: |
+| `ActivityDate`  |                     61  |
 
-           p0           p25     p50     p75    p100 hist 
- 1 1503960366 2320127002    4.45e+9 6.96e+9 8.88e+9 ▇▅▃▅▅
- 2          0       3790.   7.41e+3 1.07e+4 3.60e+4 ▇▇▁▁▁
- 3          0          2.62 5.24e+0 7.71e+0 2.80e+1 ▇▆▁▁▁
- 4          0          2.62 5.24e+0 7.71e+0 2.80e+1 ▇▆▁▁▁
- 5          0          0    0       0       4.94e+0 ▇▁▁▁▁
- 6          0          0    2.10e-1 2.05e+0 2.19e+1 ▇▁▁▁▁
- 7          0          0    2.40e-1 8.00e-1 6.48e+0 ▇▁▁▁▁
- 8          0          1.95 3.36e+0 4.78e+0 1.07e+1 ▆▇▆▁▁
- 9          0          0    0       0       1.10e-1 ▇▁▁▁▁
-10          0          0    4   e+0 3.2 e+1 2.1 e+2 ▇▁▁▁▁
-11          0          0    6   e+0 1.9 e+1 1.43e+2 ▇▁▁▁▁
-12          0        127    1.99e+2 2.64e+2 5.18e+2 ▅▇▇▃▁
-13          0        730.   1.06e+3 1.23e+3 1.44e+3 ▁▁▇▅▇
-14          0       1828.   2.13e+3 2.79e+3 4.9 e+3 ▁▆▇▃▁
+### Numeric Variable Summary:
+
+| Variable Name               | Mean            | Standard Deviation | Min    | 25th Percentile | Median  | 75th Percentile | Max      |
+| :----------------------------- | ---------------: | ----------------: | -----: | --------------: | ------: | --------------: | -------: |
+| `Id`                          | 4.855e+9         | 2.42e+9           | 1.5e+9 |      2.3e+9      | 4.4e+9 |      6.9e+9      | 8.8e+9  |
+| `TotalSteps`                   | 7638             | 5092               | 0      |     3790         |  7406   |    10727        | 36019   |
+| `TotalDistance`                | 5.490            | 3.918              | 0      |      2.62        |  5.245  |     7.713       | 28.03   |
+| `TrackerDistance`              | 5.475            | 3.912              | 0      |      2.62        |  5.245  |     7.710       | 28.03   |
+| `LoggedActivitiesDistance`    | 0.1082           | 0.6201             | 0      |      0           |   0     |      0           |  4.9421  |
+| `VeryActiveDistance`           | 1.503            | 2.658              | 0      |      0           |  0.21   |     2.053       | 21.92   |
+| `ModeratelyActiveDistance`     | 0.5675           | 0.8837             | 0      |      0           |  0.24   |     0.800       |  6.48   |
+| `LightActiveDistance`          | 3.341            | 2.036              | 0      |      1.945       |  3.365  |     4.782       | 10.71   |
+| `SedentaryActiveDistance`      | 0.0016           | 0.0074             | 0      |      0           |   0     |      0           |  0.11   |
+| `VeryActiveMinutes`           | 21.16            | 32.84              | 0      |      0           |   4     |     32           | 210    |
+| `FairlyActiveMinutes`          | 13.56            | 19.99              | 0      |      0           |   6     |     19           | 143    |
+| `LightlyActiveMinutes`         | 192.8            | 108.6              | 0      |    127           | 199     |    264           | 518    |
+| `SedentaryMinutes`             | 991.2            | 300.9              | 0      |    730           | 1057.5  |   1229.5        | 1440   |
+| `Calories`                    | 2304             | 718.1              | 0      |    1828         | 2134    |    2793         | 4900   |
+
+**Key Observations:**
+
+*   The dataset seems to capture daily activity data over 61 unique days.
+*   The average daily step count is around 7638.
+*   The average daily distance covered is around 5.49 units.
+*   Calorie consumption is relatively high, with an average of 2304 per day.
+*   There's a significant amount of sedentary time, with an average of 991 minutes per day.
 > 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-summary(minuteCaloriesNarrow_merged)
-       Id            ActivityMinute    
- Min.   :1.504e+09   Length:1325580    
- 1st Qu.:2.320e+09   Class : character  
- Median :4.445e+09   Mode:character  
- Mean   :4.848e+09                     
- 3rd Qu.:6.962e+09                     
- Max.   :8.878e+09                     
-    Calories      
- Min.   : 0.0000  
- 1st Qu.: 0.9357  
- Median : 1.2176  
- Mean   : 1.6231  
- 3rd Qu.: 1.4327  
- Max.   :19.7499  
+## Data Summary for minuteCaloriesNarrow_merged Dataset
 
- skim(minuteCaloriesNarrow_merged)
-── Data Summary ────────────────────────
-                           Values                      
-Name                       minuteCaloriesNarrow_merg...
-Number of rows             1325580                     
-Number of columns          3                           
-_______________________                                
-Column type frequency:                                 
-  character                1                           
-  numeric                  2                           
-________________________                               
-Group variables            None                        
+**General Overview:**
 
-── Variable type: character ────────────────────────
-  skim_variable  n_missing complete_rate min max
-1 ActivityMinute         0             1  19  21
-  empty n_unique whitespace
-1     0    44160          0
+*   Number of rows: 1,325,580
+*   Number of columns: 3
+*   Column types:
+    *   1 character (`ActivityMinute`)
+    *   2 numeric (`Id`, `Calories`)
 
-── Variable type: numeric ──────────────────────────
-  skim_variable n_missing complete_rate
-1 Id                    0             1
-2 Calories              0             1
-           mean            sd         p0     p25
-1 4847897692.   2422313222.   1503960366 2.32e+9
-2          1.62          1.41          0 9.36e-1
-            p50           p75         p100 hist 
-1 4445114986    6962181067    8877689391   ▇▅▃▅▅
-2          1.22          1.43         19.7 ▇▁▁▁▁
+**Character Variable Summary:**
+
+| Variable Name   |  Data Type | Length (number of characters) |
+| :------------- | :-------- | ----------------------------: |
+| `ActivityMinute` |  Character |       19 - 21               |
+
+**Numeric Variable Summary:**
+
+| Variable Name | Mean            |             Std. Deviation |   Min |   25th Percentile |   Median |   75th Percentile |      Max |
+| :------------- | ---------------: | ------------------------: | ----: | --------------: | ------: | --------------: | -------: |
+| `Id`           | 4,847,897,692   |  Not provided in the output | 1.5e+9 |      2.3e+9      | 4.4e+9 |      6.9e+9      | 8.8e+9  |
+| `Calories`     | 1.6231          |          Not provided in the output | 0.0    |     0.9357       |  1.2176 |     1.4327       | 19.7499  |
+
+
+
+**Key Observations:**
+
+*   The `ActivityMinute` variable seems to represent time stamps and likely has a consistent format based on the length range (19-21 characters). Further investigation into the format (e.g., "YYYY-MM-DD HH:MM:SS") would be beneficial.
+*   The `Id` variable is likely a unique identifier for each data point (potentially each minute of activity for each user).
+*   `Calories` represents the calories burned per minute, with a wide range from 0 to 19.75. The distribution appears right-skewed, indicating most values are concentrated in the lower range.
+
+**Potential Next Steps:**
+
+*   Investigate the exact format of `ActivityMinute` for more precise time-based analysis.
+*   Consider aggregating the data by hour or day to examine broader trends in calorie expenditure.
+*   Explore the relationship between `Id` (potentially representing users) and calorie burn to identify individual differences or patterns.
+*   Conduct further statistical analysis to understand the distribution of `Calories` more thoroughly.
+
+________________________________________________________________________________________________
+ ## Data Summary for minuteCaloriesNarrow_merged Dataset
+
+**General Overview:**
+
+*   Number of rows: 1,325,580
+*   Number of columns: 3
+*   Column types:
+    *   1 character (`ActivityMinute`)
+    *   2 numeric (`Id`, `Calories`)
+
+**Character Variable Summary:**
+
+| Variable Name   |  Data Type | Length (number of characters) |
+| :------------- | :-------- | ----------------------------: |
+| `ActivityMinute` |  Character |       19 - 21               |
+
+**Numeric Variable Summary:**
+
+| Variable Name | Mean            |             Std. Deviation |   Min |   25th Percentile |   Median |   75th Percentile |      Max |
+| :------------- | ---------------: | ------------------------: | ----: | --------------: | ------: | --------------: | -------: |
+| `Id`           | 4,847,897,692   |  Not provided in the output | 1.5e+9 |      2.3e+9      | 4.4e+9 |      6.9e+9      | 8.8e+9  |
+| `Calories`     | 1.6231          |          Not provided in the output | 0.0    |     0.9357       |  1.2176 |     1.4327       | 19.7499  |
+
+
+
+**Key Observations:**
+
+*   The `ActivityMinute` variable seems to represent time stamps and likely has a consistent format based on the length range (19-21 characters). Further investigation into the format (e.g., "YYYY-MM-DD HH:MM:SS") would be beneficial.
+*   The `Id` variable is likely a unique identifier for each data point (potentially each minute of activity for each user).
+*   `Calories` represents the calories burned per minute, with a wide range from 0 to 19.75. The distribution appears right-skewed, indicating most values are concentrated in the lower range.
+
+**Potential Next Steps:**
+
+*   Investigate the exact format of `ActivityMinute` for more precise time-based analysis.
+*   Consider aggregating the data by hour or day to examine broader trends in calorie expenditure.
+*   Explore the relationship between `Id` (potentially representing users) and calorie burn to identify individual differences or patterns.
+*   Conduct further statistical analysis to understand the distribution of `Calories` more thoroughly.
+
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-summary(hourlyIntensities_merged)
-       Id            ActivityHour      
- Min.   :1.504e+09   Length:22099      
- 1st Qu.:2.320e+09   Class :character  
- Median :4.445e+09   Mode  :character  
- Mean   :4.848e+09                     
- 3rd Qu.:6.962e+09                     
- Max.   :8.878e+09                     
- TotalIntensity   AverageIntensity
- Min.   :  0.00   Min.   :0.0000  
- 1st Qu.:  0.00   1st Qu.:0.0000  
- Median :  3.00   Median :0.0500  
- Mean   : 12.04   Mean   :0.2006  
- 3rd Qu.: 16.00   3rd Qu.:0.2667  
- Max.   :180.00   Max.   :3.0000  
+## Data Summary for hourlyIntensities_merged Dataset
 
-── Data Summary ────────────────────────
-                           Values                  
-Name                       hourlyIntensities_merged
-Number of rows             22099                   
-Number of columns          4                       
-_______________________                            
-Column type frequency:                             
-  character                1                       
-  numeric                  3                       
-________________________                           
-Group variables            None                    
+**General Overview:**
 
-── Variable type: character ────────────────────────
-  skim_variable n_missing complete_rate min max
-1 ActivityHour          0             1  19  21
-  empty n_unique whitespace
-1     0      736          0
+*   Number of rows: 22,099
+*   Number of columns: 4
+*   Column types:
+    *   1 character (`ActivityHour`)
+    *   3 numeric (`Id`, `TotalIntensity`, `AverageIntensity`)
 
-── Variable type: numeric ──────────────────────────
-  skim_variable    n_missing complete_rate    mean
-1 Id                       0             1 4.85e+9
-2 TotalIntensity           0             1 1.20e+1
-3 AverageIntensity         0             1 2.01e-1
-       sd         p0        p25           p50
-1 2.42e+9 1503960366 2320127002 4445114986   
-2 2.11e+1          0          0          3   
-3 3.52e-1          0          0          0.05
-      p75       p100 hist 
-1 6.96e+9 8877689391 ▇▅▃▅▅
-2 1.6 e+1        180 ▇▁▁▁▁
-3 2.67e-1          3 ▇▁▁▁▁
+**Character Variable Summary:**
+
+| Variable Name   |  Data Type | Length (number of characters) | Number of Unique Values |
+| :------------- | :-------- | ----------------------------: |----------------------:|
+| `ActivityHour` |  Character |       19 - 21               |  736                 |
+
+**Numeric Variable Summary:**
+
+| Variable Name      |      Mean |    Std. Deviation |   Min |   25th Percentile |   Median |   75th Percentile |      Max |
+| :----------------- | --------: | ----------------: | ----: | --------------: | ------: | --------------: | -------: |
+| `Id`                | 4.85e+9   |  Not provided in the output | 1.5e+9 |      2.3e+9      | 4.4e+9 |      6.9e+9      | 8.8e+9  |
+| `TotalIntensity`    | 12.04    |  21.13           |  0.00  |      0.00        |  3.00   |     16.00        |   180.00 |
+| `AverageIntensity` |  0.2006  |   0.3518          |  0.00  |      0.00        |  0.05   |      0.2667       |    3.00  |
+
+**Key Observations:**
+
+*   The `ActivityHour` variable likely represents timestamps with a consistent format (given the length). Further investigation is needed to confirm the exact format.
+*   The `Id` variable is likely a unique identifier for each data point (potentially each hour of activity for each user).
+*   `TotalIntensity` has a wide range, indicating varying levels of intensity throughout the dataset. The distribution is heavily skewed right, with most values being low.
+*   `AverageIntensity` is calculated per hour and also shows a skewed right distribution, suggesting that most hours have low-intensity activity.
+
+**Potential Next Steps:**
+
+*   Confirm the format of `ActivityHour` for precise time-based analysis.
+*   Investigate the distribution of `TotalIntensity` and `AverageIntensity` in more detail (e.g., histograms, boxplots) to understand the patterns of activity intensity.
+*   Explore the relationship between `Id` (potentially users) and intensity levels to identify individual differences or trends.
+*   Aggregate data to higher time intervals (e.g., daily or weekly) to examine broader trends in activity intensity. 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-skim(hourlyIntensities_merged)
-── Data Summary ────────────────────────
-                           Values                  
-Name                       hourlyIntensities_merged
-Number of rows             22099                   
-Number of columns          4                       
-_______________________                            
-Column type frequency:                             
-  character                1                       
-  numeric                  3                       
-________________________                           
-Group variables            None                    
 
-── Variable type: character ────────────────────────
-  skim_variable n_missing complete_rate min max
-1 ActivityHour          0             1  19  21
-  empty n_unique whitespace
-1     0      736          0
+## Data Summary for exercise_dataset
 
-── Variable type: numeric ──────────────────────────
-  skim_variable    n_missing complete_rate    mean
-1 Id                       0             1 4.85e+9
-2 TotalIntensity           0             1 1.20e+1
-3 AverageIntensity         0             1 2.01e-1
-       sd         p0        p25           p50
-1 2.42e+9 1503960366 2320127002 4445114986   
-2 2.11e+1          0          0          3   
-3 3.52e-1          0          0          0.05
-      p75       p100 hist 
-1 6.96e+9 8877689391 ▇▅▃▅▅
-2 1.6 e+1        180 ▇▁▁▁▁
-3 2.67e-1          3 ▇▁▁▁▁
------------------------------------------------------------------------------------------------------------------------------------------------------------
-summary(exercise_dataset)
- Activity, Exercise or Sport (1 hour)
- Length:248                          
- Class: character                    
- Mode : character                    
-                                                                                                       
-     130 lb           155 lb           180 lb      
- Min.   :  89.0   Min.   : 106.0   Min.   : 123.0  
- 1st Qu.: 236.0   1st Qu.: 281.0   1st Qu.: 327.0  
- Median : 354.0   Median : 422.0   Median : 490.0  
- Mean   : 389.8   Mean   : 464.7   Mean   : 539.7  
- 3rd Qu.: 472.0   3rd Qu.: 563.0   3rd Qu.: 654.0  
- Max.   :1062.0   Max.   :1267.0   Max.   :1471.0  
-     205 lb       Calories per kg 
- Min.   : 140.0   Min.   :0.3101  
- 1st Qu.: 372.0   1st Qu.:0.8232  
- Median : 558.0   Median :1.2349  
- Mean   : 614.6   Mean   :1.3599  
- 3rd Qu.: 745.0   3rd Qu.:1.6478  
- Max.   :1675.0   Max.   :3.7066  
+### General Overview:
 
- skim(exercise_dataset) # Since this is a look up table this might not be helpful 
-skim_variable   n_missing complete_rate   mean
-1 130 lb                  0             1 390.  
-2 155 lb                  0             1 465.  
-3 180 lb                  0             1 540.  
-4 205 lb                  0             1 615.  
-5 Calories per kg         0             1   1.36
-       sd      p0     p25    p50    p75    p100
-1 194.     89     236     354    472    1062   
-2 232.    106     281     422    563    1267   
-3 269.    123     327     490    654    1471   
-4 307.    140     372     558    745    1675   
-5   0.679   0.310   0.823   1.23   1.65    3.71
-  hist 
-1 ▇▇▂▂▁
-2 ▇▇▂▂▁
-3 ▇▇▂▂▁
-4 ▇▇▂▂▁
-5 ▇▇▂▂▁
+*   **Purpose:** The `exercise_dataset` appears to be a lookup table providing calorie estimates for various exercises or sports based on body weight.
+*   **Number of Rows:** 248
+*   **Number of Columns:** 6
+*   **Column Types:** All numeric
+
+### Column Descriptions:
+
+*   **`Activity, Exercise or Sport (1 hour)`:** This column likely contains the names of different activities or exercises (character type, not shown in summary).
+*   **Weight-Based Calorie Estimates:** The remaining columns (`130 lb`, `155 lb`, `180 lb`, `205 lb`) represent estimated calorie expenditure for each activity, categorized by body weight.
+*   **`Calories per kg`:** This column provides a standardized calorie estimate based on body weight in kilograms.
+
+### Numeric Variable Summary:
+
+| Variable Name      |      Mean |     Std. Deviation |   Min |   25th Percentile |   Median |   75th Percentile |      Max |
+| :----------------- | --------: | ----------------: | ----: | --------------: | ------: | --------------: | -------: |
+| `130 lb`            |  389.8   |          193.6  |  89.0  |        236.0      |  354.0  |        472.0      | 1062.0  |
+| `155 lb`            |  464.7   |          231.7  | 106.0  |        281.0      |  422.0  |        563.0      | 1267.0  |
+| `180 lb`            |  539.7   |          268.9  | 123.0  |        327.0      |  490.0  |        654.0      | 1471.0  |
+| `205 lb`            |  614.6   |          306.7  | 140.0  |        372.0      |  558.0  |        745.0      | 1675.0  |
+| `Calories per kg` |    1.36  |           0.679  |  0.3101 |        0.8232     |  1.2349 |        1.6478     |  3.7066 |
+
+### Key Observations:
+
+*   The dataset provides a useful reference for estimating calorie expenditure for various activities, accounting for different body weights.
+*   The calorie estimates increase proportionally with body weight, as expected.
+*   The `Calories per kg` column allows for more personalized estimations based on an individual's weight.
+
+### Additional Notes:
+
+*   It's important to note that these are just estimates. Actual calorie burn can vary based on individual factors like age, gender, and fitness level. 
+*   To make this table even more useful, it would be helpful to know the specific activities listed in the first column. 
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 # Case Study Roadmap - Analyze
 
-Case Study Roadmap - Analyze
-
++ Phase 1: Initial Data Exploration and Cleaning
 Guiding Questions
 
-How should you organize your data to perform analysis on it?
-We've organized the data into the following data frames:
-dailyActivity_merged: Contains daily summaries of activity, calories, and intensity.
-exercise_dataset_long: Provides calorie expenditure information for various activities at different intensity levels and weights.
-calorie_lookup_155: A lookup table was created to estimate calories burned per minute for each activity category, using the average values from the exercise dataset, assuming a weight of 155 lbs.
-Has your data been properly formatted?
-Yes. We've:
-Converted the ActivityDate columns to date format.
-Combined the VeryActiveMinutes, FairlyActiveMinutes, and LightlyActiveMinutes columns to create a new TotalActiveMinutes column.
-Created a new column to calculate estimated calories burned (EstimatedCaloriesBurned) in the dailyActivity_merged table.
-What surprises did you discover in the data?
-We discovered a significant difference between the estimated calories burned and the actual calories tracked by Fitbit.
-The Mean Absolute Error (MAE) is high, suggesting a potential issue with the estimation model.
-What trends or relationships did you find in the data? We found that:
-There is a moderately strong positive correlation (0.67) between total steps taken and calories burned, suggesting a significant relationship.
-Code snippet
++ Data Organization:
 
++ dailyActivity_merged: Daily summaries (activity, calories, intensity).
+exercise_dataset_long: Calorie expenditure by activity, intensity, and weight.
+calorie_lookup_155: Estimated calories/minute per activity (155 lbs).
+Data Formatting:
+
++ActivityDate converted to date format.
+TotalActiveMinutes calculated (sum of VeryActiveMinutes, FairlyActiveMinutes, LightlyActiveMinutes).
+EstimatedCaloriesBurned added to dailyActivity_merged.
+Key Findings
+
++ Surprising Discovery:
+A significant difference between estimated and tracked calories (high Mean Absolute Error).
+Note: This suggests the estimation model may need refinement.
+
++ Trends and Relationships:
+Moderate positive correlation between total steps and calories burned (0.58).
 [1] "Correlation between Total Steps and Calories Burned: 0.581380189499401"
+Right-skewed distribution of calories burned.
+Positive correlation between TotalActiveMinutes and TotalCalories (0.64).
+Business Implications for Bellabeat
 
-The distribution of calories burned is right-skewed, indicating most users burn a moderate amount of calories, with fewer users burning very high amounts.
-Code snippet
-_____________________________________________________________________________________
-
-There is a positive correlation (0.64) between TotalActiveMinutes and TotalCalories
-
-How will these insights help answer your business questions?
-Calorie Estimation Discrepancy: The significant difference between estimated and actual calories suggests Bellabeat might need to refine its calorie estimation algorithm, potentially incorporating more individual factors like weight, heart rate, and specific activity types.
-
-Activity Trends:  The positive correlation between steps/active minutes and calories can be used to encourage users to be more active. The distribution of calories burned can help set realistic goals for different user segments.
-
-Deliverable: Summary of Analysis
-
-The analysis reveals:
-
-Strong Correlation: A moderately strong positive correlation between total steps and calories burned (correlation coefficient = 0.67).
-Strong Correlation: A moderately strong positive correlation between total active minutes and total calories burned (correlation coefficient = 0.64).
-Estimation Error: A high Mean Absolute Error (MAE) and Mean Absolute Percentage Error (MAPE) when comparing estimated calories to Fitbit's values.
-Recommendations for Bellabeat:
-
-Improve Calorie Estimation: Investigate why there are large discrepancies between estimated and logged calories. Consider refining the calorie estimation algorithm to include individual factors like weight, heart rate, and more specific MET values for various activities.
-Personalized Goals: Utilize the information on the distribution of calories burned to set personalized goals for users based on their current activity levels.
-Promote Active Minutes: Since there is a positive correlation between active minutes and calories burned, create features or campaigns that encourage users to increase their active time throughout the day.
-
--------------------------------------------------------------------------------------
-
-Merging: Combine the aggregated Fitbit data with the exercise dataset based on activity type. This lets us compare Fitbit's calorie estimates with those from the reference dataset.
-Has your data been properly formatted?
-Yes. The Fitbit data has been cleaned, missing values addressed (if any), duplicates removed, and relevant columns merged. The ActivityDate is converted to a date format. The exercise dataset has been restructured to calculate calories per minute for each weight class.
-What surprises did you discover in the data?
-(Example) We might find that users who log more activities in the Fitbit app tend to have higher overall calorie expenditure compared to those who don't log activities, even if their total steps or active minutes are similar.
-(Example) We might observe significant differences in calorie burn estimates between the Fitbit dataset and the "Calories Burned" dataset for certain activities, suggesting potential areas for improvement in Bellabeat's algorithms.
-What trends or relationships did you find in the data?
-(Example) There might be a positive correlation between total steps taken and calories burned, with higher steps leading to higher calorie expenditure.
-(Example) Certain activity types (e.g., running, swimming) might consistently lead to higher calorie burn than others (e.g., walking, yoga).
-(Example) There might be distinct patterns in calorie expenditure and activity intensity throughout the day, with peaks in the morning or evening.
-How will these insights help answer your business questions?
-Feature Enhancement: By identifying popular and effective activities, Bellabeat can prioritize features that cater to these activities, potentially including more accurate tracking or personalized guidance.
-User Engagement: Understanding activity patterns can help Bellabeat design interventions or challenges to encourage users to be more active during specific times of day or week.
-Marketing and Messaging: Insights into calorie burn and activity preferences can be used to tailor marketing messages and target specific user segments with relevant content.
-Key Tasks:
-
-Aggregate data: Aggregate the Fitbit datasets to a daily level using functions like group_by and summarize.
-Organize and format data: Ensure all relevant variables are in the correct format (e.g., dates, numeric) for analysis and visualization.
-
-Perform calculations: Calculate total active minutes, combined distances, and calories per minute as needed.
-Identify trends and relationships: Use statistical tests (e.g., correlation, t-tests), data visualization (scatter plots, line graphs, bar charts), and potentially even machine learning models to uncover patterns and relationships in the data.
++ Calorie Estimation Discrepancy: Refine the calorie estimation algorithm to include individual factors (weight, heart rate, specific MET values).
+  
++ Activity Trends:
+Encourage users to be more active with personalized goals.
+Create features/campaigns promoting increased active time.
 Deliverable:
-A summary of the analysis, including:
 
-Key findings: Summarize the most important trends and relationships discovered.
++ Summary of Analysis:
+Strong correlations between steps/active minutes and calories.
+High MAE/MAPE in calorie estimation.
 
+# Phase 2: Deeper Analysis with Merged Data
+Data Preparation
 
-Analysis of Fitbit data revealed that users who log activities tend to burn more calories overall. Certain activities, like running and swimming, were associated with higher calorie expenditure compared to others. Activity levels also varied by time of day, with peaks in the morning and evening. These insights suggest opportunities for Bellabeat to refine its calorie-tracking algorithms, personalize activity recommendations, and develop features that encourage users to engage in specific activities during optimal times.
++ Merging: Combined Fitbit data with exercise dataset based on activity type.
+Key Findings
 
++Activity Logging: Users who log activities may burn more calories overall.
+Calorie Estimation: Significant differences in calorie estimates for certain activities (potential for algorithm improvement).
 
++ Activity Patterns: Distinct patterns in calorie expenditure and intensity throughout the day.
+Business Implications for Bellabeat
+
++ Feature Enhancement: Prioritize features for popular/effective activities.
+User Engagement: Design interventions/challenges to encourage activity during specific times.
+Marketing: Tailor messages based on calorie burn and activity preferences.
+Key Tasks
+
++ Calculations: Total active minutes, combined distances, calories per minute.
+Analysis: Statistical tests, visualizations, and potentially machine learning models.
+Deliverable:
+
++ Detailed Analysis Summary:
+Impact of activity logging on calorie burn.
+Calorie burn variance by activity type.
+Activity patterns by time of day.
+Recommendations for algorithm refinement, personalization, and feature development
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -596,11 +531,11 @@ Analysis of Fitbit data revealed that users who log activities tend to burn more
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-Case Study Roadmap - Share
+# Case Study Roadmap - Share
 
 Guiding Questions
 
-Were you able to answer the business questions?
++ Were you able to answer the business questions?
 
 Yes. The analysis provided valuable insights into:
 Calorie Estimation Accuracy: We quantified the error in Bellabeat's calorie estimation algorithm and found it to be somewhat inaccurate on average.
@@ -609,17 +544,17 @@ Relationships: We found a moderate positive correlation between steps/active min
 Discrepancies: The analysis revealed a potential overestimation of calories burned for some activities compared to the reference dataset.
 What story does your data tell?
 
-Story: The data tells a story of active users who primarily engage in moderate-intensity activities but also spend a considerable amount of time being sedentary. Bellabeat's calorie estimation tends to be higher than expected, indicating a need for improvement.
++ Story: The data tells a story of active users who primarily engage in moderate-intensity activities but also spend a considerable amount of time being sedentary. Bellabeat's calorie estimation tends to be higher than expected, indicating a need for improvement.
 How do your findings relate to your original question?
 
-Directly Relevant: The findings directly answer the initial questions about user behavior, activity patterns, calorie estimation accuracy, and potential areas for improvement in Bellabeat's product offerings.
++ Directly Relevant: The findings directly answer the initial questions about user behavior, activity patterns, calorie estimation accuracy, and potential areas for improvement in Bellabeat's product offerings.
 Who is your audience? What is the best way to communicate with them?
 
-Audience: Bellabeat stakeholders (executives, product managers, marketing teams).
-Communication: A clear, concise, and visually appealing presentation (e.g., PowerPoint or Google Slides) with supporting visuals (charts, graphs, tables) would be most effective. The presentation should focus on the key insights and actionable recommendations, avoiding excessive technical details.
++ Audience: Bellabeat stakeholders (executives, product managers, marketing teams).
++ Communication: A clear, concise, and visually appealing presentation (e.g., PowerPoint or Google Slides) with supporting visuals (charts, graphs, tables) would be most effective. The presentation should focus on the key insights and actionable recommendations, avoiding excessive technical details.
 Can data visualization help you share your findings?
 
-Essential: Data visualizations are crucial for effectively communicating the results. They make complex data patterns easy to understand and highlight the most important findings.
++ Essential: Data visualizations are crucial for effectively communicating the results. They make complex data patterns easy to understand and highlight the most important findings.
 Types of Visualizations: We'll use scatterplots, histograms, bar charts, and potentially line graphs to illustrate correlations, distributions, comparisons, and trends.
 Is your presentation accessible to your audience?
 
@@ -629,13 +564,13 @@ Focus on the business implications of the findings.
 Provide context and explanations for each visualization.
 Use a visually appealing design with appropriate color schemes and fonts.
 
-What It Shows: Average daily steps, calories burned, and active minutes over time for all users.
-Insights: Helps identify trends in overall user activity levels, seasonal variations, or the impact of any interventions or campaigns Bellabeat might have run during the data collection period
++ What It Shows: Average daily steps, calories burned, and active minutes over time for all users.
+Insights: Help identify trends in overall user activity levels, seasonal variations, or the impact of any interventions or campaigns Bellabeat might have run during the data collection period
 
 ![RbetwenActiveMinNCalories]
 (https://github.com/marcaldana/analysis/assets/72458759/65fadc7b-aa04-4b31-8de5-17a6a37bde5e)
 
-Insight: Reveals how active minutes are distributed across users. Are most users moderately active, or are there clusters of very active and sedentary individuals?
++ Insight: Reveals how active minutes are distributed across users. Are most users moderately active, or are there clusters of very active and sedentary individuals?
 
 ![Rtotalactiveminute](https://github.com/marcaldana/analysis/assets/72458759/178a8008-9d48-4362-b42a-9a24f95dd922)
 
@@ -647,9 +582,9 @@ Code:
 
 ![RplotCalorieEstDifferences](https://github.com/marcaldana/analysis/assets/72458759/d8d5cf09-d978-4c3f-b0d5-6b561caa1cc4)
 
-Interpretation:
++ Interpretation:
 
-High Bars: A tall bar in the histogram indicates that a particular range of calorie differences is quite common.
++ High Bars: A tall bar in the histogram indicates that a particular range of calorie differences is quite common.
 Low Bars: A short bar means that the corresponding range of calorie differences occurs less frequently.
 Overall Shape: The overall shape of the histogram tells you about the distribution of the errors.
 --------------------------------------------------------------------------------------------------------------------------------------
@@ -659,31 +594,36 @@ Overall Shape: The overall shape of the histogram tells you about the distributi
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Case Study Roadmap - Act
+# Case Study Roadmap - Act
 
-Guiding Questions (Answered)
++ Guiding Questions (Answered)
 
-What is your conclusion based on your analysis?
++ What is your conclusion based on your analysis?
 
-Conclusion: Our analysis of Fitbit data reveals:
++ Conclusion: Our analysis of Fitbit data reveals:
 A significant discrepancy between Bellabeat's calorie estimations and actual user data, indicating a need for algorithm refinement.
-Users predominantly engage in light to moderate activities, with a significant amount of sedentary time, highlighting an opportunity to promote more movement.
-A positive correlation between steps/active minutes and calories burned, suggests that encouraging increased activity can contribute to weight management goals.
-How could your team and business apply your insights?
 
-Bellabeat can leverage these insights to:
+Users predominantly engage in light to moderate activities, with a significant amount of sedentary time, highlighting an opportunity to promote more movement.
+
+A positive correlation between steps/active minutes and calories burned, suggests that encouraging increased activity can contribute to weight management goals.
+
++ How could your team and business apply your insights?
+
++ Bellabeat can leverage these insights to:
 Refine Calorie Estimation Algorithm: Improve the accuracy of calorie calculations by incorporating individual user data (weight, heart rate, potentially even sleep data) and validating against a wider range of activities.
 Develop Targeted Features: Introduce features that encourage specific activities shown to effectively burn calories, especially those aligned with user preferences.
-Create Personalized Recommendations: Offer personalized guidance based on individual activity levels and goals, potentially using different weight classes to tailor calorie estimations.
+
++ Create Personalized Recommendations: Offer personalized guidance based on individual activity levels and goals, potentially using different weight classes to tailor calorie estimations.
 Gamification: Incorporate challenges or rewards to motivate users to increase their steps, and active minutes, and engage in higher-intensity activities.
-Educational Content: Provide educational resources on the impact of different activities and intensities on calorie burn, empowering users to make informed choices.
+
++ Educational Content: Provide educational resources on the impact of different activities and intensities on calorie burn, empowering users to make informed choices.
 What next steps would you or your stakeholders take based on your findings?
 
-Next Steps:
++ Next Steps:
 Collect More Data: Gather additional data on user demographics (age, weight, gender) to further refine the calorie estimation model and personalize recommendations.
 Conduct User Research: Conduct surveys or interviews to understand users' perceptions of calorie tracking and identify areas for improvement in the Bellabeat app/device experience.
 Experiment with Algorithm Adjustments: Test different calorie estimation formulas and parameters to assess their impact on accuracy.
-Monitor User Feedback: Track user feedback after implementing any changes to the calorie tracking or features to gauge effectiveness and make further refinements.
++ Monitor User Feedback: Track user feedback after implementing any changes to the calorie tracking or features to gauge effectiveness and make further refinements.
 Is there additional data you could use to expand on your findings?
 
 Yes. The following additional datasets would be helpful:
@@ -695,7 +635,7 @@ Key Tasks (Completed)
 
 Deliverable:
 
-Top High-Level Insights:
+# Top High-Level Insights:
 Bellabeat's current calorie estimation model may not be accurate for all users and activity types.
 Users are primarily engaging in light to moderate activities, with a significant amount of sedentary time.
 There's a strong correlation between steps taken/active minutes and calories burned.
