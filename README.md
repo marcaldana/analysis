@@ -199,66 +199,150 @@ Guiding Questions
 + Calories Burned Data:
 + Calculate calories per minute for each activity to facilitate comparison with the Fitbit data.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-+ Results: 
-                      Id             ActivityDate               TotalSteps 
-                       0                        0                        0 
-           TotalDistance          TrackerDistance LoggedActivitiesDistance 
-                       0                        0                        0 
-      VeryActiveDistance ModeratelyActiveDistance      LightActiveDistance 
-                       0                        0                        0 
- SedentaryActiveDistance        VeryActiveMinutes      FairlyActiveMinutes 
-                       0                        0                        0 
-    LightlyActiveMinutes         SedentaryMinutes                 Calories 
-                       0                        0                        0     
+## Summary of Activity Data
 
-I'm not going to delete rows in this dataset. Since all values are 0, it means that there are no missing values in any of the columns in the dailyActivity_merged dataset.
+This table provides a summary of the initial rows and columns of the dataset, likely related to daily activity data.
+
+| Column Name               | Number of Non-Zero Values | Possible Interpretation                                                                                                                               |
+| -------------------------- | -----------------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Id`                      |                        0 | Unique identifier for each user or data entry.                                                                                                   |
+| `ActivityDate`            |                        0 | Date of the activity record. Further investigation needed to determine if dates are present in the dataset but not included in this summary.          |
+| `TotalSteps`               |                        0 | Total number of steps taken during the day.                                                                                                          |
+| `TotalDistance`            |                        0 | Total distance traveled during the day (likely in miles or kilometers).                                                                                 |
+| `TrackerDistance`          |                        0 | Distance tracked by the device (may differ from `TotalDistance` due to manual logging or data discrepancies).                                      |
+| `LoggedActivitiesDistance`  |                        0 | Distance logged through manual entry or other sources (may not be tracked by the device).                                                             |
+| `VeryActiveDistance`       |                        0 | Distance covered during very active periods (e.g., running, intense exercise).                                                                      |
+| `ModeratelyActiveDistance` |                        0 | Distance covered during moderately active periods (e.g., brisk walking).                                                                             |
+| `LightActiveDistance`      |                        0 | Distance covered during light activity (e.g., casual walking).                                                                                       |
+| `SedentaryActiveDistance`  |                        0 | Distance covered during sedentary activities (this might be an error or indicate a very specific tracking category).                                 |
+| `VeryActiveMinutes`       |                        0 | Total minutes spent in very active activities.                                                                                                    |
+| `FairlyActiveMinutes`      |                        0 | Total minutes spent in fairly active activities (intensity between light and very active).                                                            |
+| `LightlyActiveMinutes`     |                        0 | Total minutes spent in light activities.                                                                                                          |
+| `SedentaryMinutes`         |                        0 | Total minutes spent being sedentary.                                                                                                             |
+| `Calories`                |                        0 | Total calories burned during the day.                                                                                                             |
+
+**Important Note:**
+
+All columns in this initial summary display 0 non-zero values. This could indicate one of the following:
+
+*   The summary is only showing the first few rows, and these rows happen to have zeros in these columns.
+*   There is a potential issue with data loading or formatting where values are not being read correctly.
+*   These specific columns might be populated later in the dataset, or they might not be used in this particular analysis.
+
+**Next Steps:**
+
+1.  **Verify Data:** Double-check your data loading process and ensure all values are being read correctly.
+2.  **Inspect Further:** Use functions like `summary()`, `head()`, and `tail()` in R to get a broader view of your dataset and confirm if the zero values are consistent throughout.
+3.  **Explore Data:** If the values are indeed all zero, you'll need to consider if these columns are relevant for your analysis or if you need to explore other datasets or variables. 
+
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------                      
-colSums(is.na(minuteCaloriesNarrow_merged))
-Results:
-Id  ActivityMinute       Calories 
-0              0              0 
+## Missing Value Check: minuteCaloriesNarrow_merged Dataset
 
-I'm not going to delete rows in this dataset. Since all values are 0, it means that there are no missing values in any of the columns
------------------------------------------------------------------------------------------------------------------------------------------------------------
-colSums(is.na(hourlyIntensities_merged))
-Results:
-Id     ActivityHour   TotalIntensity AverageIntensity 
- 0                0                0                0 
- I'm not going to delete rows in this dataset. Since all values are 0, it means that there are no missing values in any of the columns
+| Column Name   | Number of Missing Values |
+| :------------- | ----------------------: |
+| `Id`           |                        0 |
+| `ActivityMinute` |                        0 |
+| `Calories`     |                        0 |
+
+**Key Takeaway:**
+
+The `minuteCaloriesNarrow_merged` dataset contains no missing values in the `Id`, `ActivityMinute`, and `Calories` columns. This indicates that all rows have complete data for these variables, which is a good starting point for analysis. 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-  colSums(is.na(hourlyCalories_merged))
-  Results:
-  Id    ActivityHour     Calories 
-  0            0            0 
-I'm not going to delete rows in this dataset. Since all values are 0, it means that there are no missing values in any of the columns
+## Missing Value Check: hourlyIntensities_merged Dataset
+
+| Column Name       | Number of Missing Values |
+| :----------------- | ----------------------: |
+| `Id`               |                        0 |
+| `ActivityHour`     |                        0 |
+| `TotalIntensity`   |                        0 |
+| `AverageIntensity` |                        0 |
+
+**Key Takeaway:**
+
+The `hourlyIntensities_merged` dataset contains no missing values in any of its columns. This is a positive indication that the dataset is complete and ready for analysis without the need for imputation or removal of rows. 
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-colSums(is.na(exercise_dataset))
-Activity, Exercise or Sport (1 hour) 
-                                   0 
-                              130 lb 
-                                   0 
-                              155 lb 
-                                   0 
-                              180 lb 
-                                   0 
-                              205 lb 
-                                   0 
-                     Calories per kg 
-                                   0 
+  ## Missing Value Check: hourlyCalories_merged Dataset
+
+| Column Name   | Number of Missing Values |
+| :------------- | ----------------------: |
+| `Id`           |                        0 |
+| `ActivityHour` |                        0 |
+| `Calories`     |                        0 |
+
+**Key Takeaway:**
+
+The `hourlyCalories_merged` dataset contains no missing values in any of its columns. This is a positive indication that the dataset is complete and ready for analysis without the need for imputation or removal of rows. 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+## Missing Value Check: exercise_dataset
+
+| Column Name                        | Number of Missing Values |
+| :---------------------------------- | ----------------------: |
+| `Activity, Exercise or Sport (1 hour)` |                        0 |
+| `130 lb`                             |                        0 |
+| `155 lb`                             |                        0 |
+| `180 lb`                             |                        0 |
+| `205 lb`                             |                        0 |
+| `Calories per kg`                    |                        0 |
+
+**Key Takeaway:**
+
+The `exercise_dataset` contains no missing values in any of its columns. This indicates that all rows have complete data for each exercise/activity and weight category, making the dataset suitable for analysis without imputation or row removal.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 + How can you verify that your data is clean and ready to analyze?
 Verification:
 Summary statistics: Calculate summary statistics (mean, median, standard deviation, etc.) for relevant variables to ensure they make sense in the context of the data.
 
-+ Min.: The minimum value in the column.
-+ 1st Qu.: The 25th percentile (the value below which 25% of the data falls).
-+ Median: The 50th percentile (the middle value of the sorted data).
-+ Mean: The average value.
-+ 3rd Qu.: The 75th percentile (the value below which 75% of the data falls).
-+ Max.: The maximum value in the column.
-  
+## Data Summary for minuteCaloriesNarrow_merged Dataset
+
+**General Overview:**
+
+*   Number of rows: 1,325,580
+*   Number of columns: 3
+*   Column types:
+    *   1 character (`ActivityMinute`)
+    *   2 numeric (`Id`, `Calories`)
+
+**Character Variable Summary:**
+
+| Variable Name   |  Data Type | Length (number of characters) |
+| :------------- | :-------- | ----------------------------: |
+| `ActivityMinute` |  Character |       19 - 21               |
+
+**Numeric Variable Summary:**
+
+| Variable Name | Min.   | 1st Qu. | Median  | Mean    | 3rd Qu. | Max.    |
+| ------------- | -----: | -------: | ------: | -------: | -------: | -------: |
+| `Id`           | 1.5e+9 |  2.3e+9  | 4.4e+9 | 4.8e+9  |  6.9e+9  | 8.8e+9  |
+| `Calories`     | 0.0    |  0.9357  |  1.2176 | 1.6231  |  1.4327  | 19.7499  |
+
+
+**Explanation of Summary Statistics:**
+
+*   **Min:** The minimum value in the column.
+*   **1st Qu.:** The 25th percentile (the value below which 25% of the data falls).
+*   **Median:** The 50th percentile (the middle value of the sorted data).
+*   **Mean:** The average value.
+*   **3rd Qu.:** The 75th percentile (the value below which 75% of the data falls).
+*   **Max:** The maximum value in the column.
+
+
+**Key Observations:**
+
+*   The `ActivityMinute` variable seems to represent time stamps and likely has a consistent format based on the length range (19-21 characters). Further investigation into the format (e.g., "YYYY-MM-DD HH:MM:SS") would be beneficial.
+*   The `Id` variable is likely a unique identifier for each data point (potentially each minute of activity for each user).
+*   `Calories` represents the calories burned per minute, with a wide range from 0 to 19.75. The distribution appears right-skewed, indicating most values are concentrated in the lower range.
+
+**Potential Next Steps:**
+
+*   Investigate the exact format of `ActivityMinute` for more precise time-based analysis.
+*   Consider aggregating the data by hour or day to examine broader trends in calorie expenditure.
+*   Explore the relationship between `Id` (potentially representing users) and calorie burn to identify individual differences or patterns.
+*   Conduct further statistical analysis to understand the distribution of `Calories` more thoroughly.
+  _____________________________________________________________________________
 ## Data Summary for dailyActivity_merged Dataset
 
 ### General Overview:
@@ -496,8 +580,8 @@ Deliverable:
 + Summary of Analysis:
 Strong correlations between steps/active minutes and calories.
 High MAE/MAPE in calorie estimation.
-
-# Phase 2: Deeper Analysis with Merged Data
+--------------------------------------------------------------------------------------------------------------------------------------------------------
++ Phase 2: Deeper Analysis with Merged Data
 Data Preparation
 
 + Merging: Combined Fitbit data with exercise dataset based on activity type.
@@ -523,12 +607,6 @@ Impact of activity logging on calorie burn.
 Calorie burn variance by activity type.
 Activity patterns by time of day.
 Recommendations for algorithm refinement, personalization, and feature development
-
-
---------------------------------------------------------------------------------------------------------------------------------------------------------
-
-![RelatiomnshipStepsNCalories](https://github.com/marcaldana/analysis/assets/72458759/dff73aef-f684-492f-a18a-cb794b9d8397)
-
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 # Case Study Roadmap - Share
@@ -566,11 +644,13 @@ Use a visually appealing design with appropriate color schemes and fonts.
 
 + What It Shows: Average daily steps, calories burned, and active minutes over time for all users.
 Insights: Help identify trends in overall user activity levels, seasonal variations, or the impact of any interventions or campaigns Bellabeat might have run during the data collection period
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ![RbetwenActiveMinNCalories]
 (https://github.com/marcaldana/analysis/assets/72458759/65fadc7b-aa04-4b31-8de5-17a6a37bde5e)
 
 + Insight: Reveals how active minutes are distributed across users. Are most users moderately active, or are there clusters of very active and sedentary individuals?
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ![Rtotalactiveminute](https://github.com/marcaldana/analysis/assets/72458759/178a8008-9d48-4362-b42a-9a24f95dd922)
 
@@ -591,6 +671,10 @@ Overall Shape: The overall shape of the histogram tells you about the distributi
 
 
 ![REstimatedvsActual155](https://github.com/marcaldana/analysis/assets/72458759/3e2536f3-197a-4b20-a2ab-fc1b67afdce7)
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+![RelatiomnshipStepsNCalories](https://github.com/marcaldana/analysis/assets/72458759/dff73aef-f684-492f-a18a-cb794b9d8397)
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -633,7 +717,7 @@ Sleep Data: Understanding sleep patterns could help uncover links between sleep,
 Nutrition Data: Combining nutrition information with activity data could offer a more holistic view of user health and well-being.
 Key Tasks (Completed)
 
-Deliverable:
+
 
 # Top High-Level Insights:
 Bellabeat's current calorie estimation model may not be accurate for all users and activity types.
